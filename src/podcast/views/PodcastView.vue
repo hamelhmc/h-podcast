@@ -38,7 +38,7 @@ onMounted(loadAllPodcasts)
 
 <template>
   <section class="p-4">
-    <SearchBar v-model="searchQuery" :item-count="filteredPodcasts.length" />
+    <SearchBar v-model="searchQuery" :item-count="filteredPodcasts?.length" />
     <PodcastList :podcasts="filteredPodcasts"></PodcastList>
   </section>
 </template>

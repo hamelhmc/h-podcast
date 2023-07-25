@@ -13,7 +13,12 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    project: ['./tsconfig.json', './tsconfig.app.json']
+    project: [
+      './tsconfig.json',
+      './tsconfig.app.json',
+      './tsconfig.vitest.json',
+      './tsconfig.node.json'
+    ]
   },
   rules: {
     'vue/component-definition-name-casing': ['error', 'PascalCase'],
