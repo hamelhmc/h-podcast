@@ -1,5 +1,6 @@
-import type { CorsProxyResponse } from '../models/cors-proxy-response'
-import type { RequestOptions } from '../models/request-options'
+import type { CorsProxyResponse } from '@/core/models/cors-proxy-response'
+import type { RequestOptions } from '@/core/models/request-options'
+import { ApiError } from '@/core/utils/api-error'
 
 class ApiService {
   private readonly baseUrl: string
