@@ -12,7 +12,8 @@ module.exports = {
     '@vue/eslint-config-prettier/skip-formatting'
   ],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
+    project: ['./tsconfig.json', './tsconfig.app.json']
   },
   rules: {
     'vue/component-definition-name-casing': ['error', 'PascalCase'],
@@ -21,7 +22,6 @@ module.exports = {
     'no-unneeded-ternary': 'warn',
     'one-var-declaration-per-line': ['warn', 'always'],
     'operator-assignment': ['warn', 'always'],
-    'operator-linebreak': ['warn', 'none'],
 
     camelcase: ['error', { properties: 'never' }],
     eqeqeq: 'error',
