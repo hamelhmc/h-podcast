@@ -20,6 +20,6 @@ const podcasts = computed(() => props.podcasts)
 
 <style scoped lang="css">
 .h-grid-auto-fit {
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
 }
 </style>
