@@ -14,24 +14,27 @@ const height = computed(() => `${podcast.value.image.height}px`)
 </script>
 
 <template>
-  <RouterLink
-    :to="'/podcast/' + podcast.id"
-    class="flex flex-col items-center relative justify-center shadow-md p-4 rounded-md transition-colors duration-200 ease-in-out hover:bg-gray-100 hover:shadow-none"
-    :aria-label="'Navigate to details for ' + podcast.title">
+  <article
+    class="flex flex-col h-full shadow-md p-4 rounded-md transition-colors duration-200 ease-in-out gap-5">
     <figure
-      class="absolute -top-20 transform transition-transform duration-500 ease-in-out hover:scale-110">
+      class="flex justify-center transform transition-transform duration-500 ease-in-out hover:scale-110">
       <img
-        class="object-cover rounded-full shadow-xl object-center border border-gray-300"
+        class="object-cover shadow-xl object-center border border-gray-300"
         :src="podcast.image.url"
         :alt="podcast.title"
         :width="podcast.image.height"
         :height="podcast.image.height" />
     </figure>
-    <figcaption class="text-sm mt-20 p-4 text-center flex flex-col gap-3 leading-relaxed">
+    <hr />
+    <figcaption class="text-sm md:text-base flex flex-col gap-2 leading-relaxed">
       <h3 class="font-medium break-words">{{ podcast.title }}</h3>
       <p class="text-xs text-muted-foreground">{{ podcast.autor }}</p>
+      <hr />
+      <p class="text-xs md:text-sm text-muted-foreground w-full md:w-[30ch] break-words">{{
+        podcast.summary
+      }}</p>
     </figcaption>
-  </RouterLink>
+  </article>
 </template>
 
 <style lang="css" scoped>
