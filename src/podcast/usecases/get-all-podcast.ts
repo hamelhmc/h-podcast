@@ -1,5 +1,8 @@
 import { apiService } from '@/core/services/api-service'
+import { LocalCache } from '@/core/services/local-cache'
 import type { PodcastModel } from '../model/PodcastModel'
+
+const podcastCache = new LocalCache('GET_ALL_PODCASTS')
 
 interface Label {
   label: string
@@ -23,6 +26,7 @@ interface Entry {
   'im:artist': Label
   title: Label
   id: EntryID
+  summary: Label
 }
 
 interface Feed {
@@ -33,7 +37,7 @@ interface PodcastResponse {
   feed: Feed
 }
 
-async function getAll(): Promise<PodcastModel[]> {
+async function fetchAllPodcast(): Promise<PodcastModel[]> {
   const url = 'us/rss/toppodcasts/limit=100/genre=1310/json'
   const response = await apiService.get<PodcastResponse>(url)
   const result = responseToPodcastModel(response)
@@ -48,39 +52,20 @@ function responseToPodcastModel(response: PodcastResponse): PodcastModel[] {
       url: podcast['im:image'][2].label,
       height: podcast['im:image'][2].attributes.height
     },
-    title: podcast['im:name'].label
+    title: podcast['im:name'].label,
+    summary: podcast.summary.label
   }))
 }
 
-function getCachedPodcasts(): PodcastModel[] | null {
-  const lastFetchDate = localStorage.getItem('lastFetchDate')
-  const cachedPodcasts = localStorage.getItem('podcasts')
-
-  if (
-    cachedPodcasts &&
-    lastFetchDate &&
-    new Date().getTime() - Number(lastFetchDate) < 24 * 60 * 60 * 1000
-  ) {
-    return JSON.parse(cachedPodcasts)
-  }
-
-  return null
-}
-
-function savePodcastsToCache(podcasts: PodcastModel[]) {
-  localStorage.setItem('podcasts', JSON.stringify(podcasts))
-  localStorage.setItem('lastFetchDate', String(new Date().getTime()))
-}
-
 export async function getAllPodcast(): Promise<PodcastModel[]> {
-  const cachedPodcasts = getCachedPodcasts()
+  const cachedPodcasts = podcastCache.get<PodcastModel[]>('ALL')
 
   if (cachedPodcasts) {
     return cachedPodcasts
   }
 
-  const response = await getAll()
-  savePodcastsToCache(response)
+  const response = await fetchAllPodcast()
+  podcastCache.set('ALL', response)
 
   return response
 }
