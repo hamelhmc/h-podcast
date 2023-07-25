@@ -12,7 +12,7 @@ async function loadAllPodcasts() {
   try {
     podcastList.value = await getAllPodcast()
   } catch (error) {
-    console.error(error)
+    console.error('🐛 ➜ loadAllPodcasts ➜ error:', error)
   }
 }
 
