@@ -3,16 +3,21 @@ import PodcastList from '@/podcast/components/PodcastList.vue'
 import type { PodcastModel } from '@/podcast/model/PodcastModel'
 import { getAllPodcast } from '@/podcast/usecases/get-all-podcast'
 import SearchBar from '@/share/components/SearchBar.vue'
+import { loadingStore } from '@/stores/loadingStore'
 import { computed, onMounted, ref } from 'vue'
 
+const store = loadingStore()
 const podcastList = ref<PodcastModel[]>([])
 const searchQuery = ref('')
 
 async function loadAllPodcasts() {
   try {
+    store.setLoadingState(true)
     podcastList.value = await getAllPodcast()
   } catch (error) {
     console.error('🐛 ➜ loadAllPodcasts ➜ error:', error)
+  } finally {
+    store.setLoadingState(false)
   }
 }
 

@@ -2,18 +2,20 @@
 import PodcastCardDetail from '@/podcast/components/PodcastCardDetail.vue'
 import type { PodcastDetail } from '@/podcast/model/podcast-detail'
 import { getByIdPodcast } from '@/podcast/usecases/get-by-id-podcast'
+import { loadingStore } from '@/stores/loadingStore'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+const store = loadingStore()
+
 const id = ref<string>(route.params.id as string)
 const podcastDetail = ref<PodcastDetail | null>()
-const isLoading = ref<boolean>(false)
 
 async function loadGetByIdPodcast(id: string) {
-  isLoading.value = true
+  store.setLoadingState(true)
   const response = await getByIdPodcast(id)
-  isLoading.value = false
+  store.setLoadingState(false)
   return response
 }
 
@@ -29,9 +31,8 @@ onMounted(() =>
 </script>
 
 <template>
-  <section v-if="isLoading" class="flex justify-center items-center min-h-screen">
-    <div
-      class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+  <section v-if="store.isLoading" class="flex justify-center items-center min-h-screen">
+    <div class="loader ease-linear mb-4"></div>
   </section>
   <section
     v-else-if="podcastDetail"
