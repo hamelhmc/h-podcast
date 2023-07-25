@@ -9,11 +9,17 @@ const router = createRouter({
     },
     {
       path: '/podcast/:id',
-      component: () => import('@/podcast/views/PodcastDetailView.vue')
-    },
-    {
-      path: '/podcast/:podcastId/episode/:episodeId',
-      component: () => import('@/podcast/views/EpisodeDetailView.vue')
+      component: () => import('@/podcast/views/PodcastLayoutDetailView.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('@/podcast/views/PodcastDetailView.vue')
+        },
+        {
+          path: 'episode/:episodeId',
+          component: () => import('@/podcast/views/EpisodeDetailView.vue')
+        }
+      ]
     }
   ],
   scrollBehavior(to, _from, _savedPosition) {
