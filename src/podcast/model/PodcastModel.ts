@@ -8,4 +8,5 @@ export type PodcastModel = {
   image: podcastImage
   title: string
   autor: string
+  summary: string
 }
