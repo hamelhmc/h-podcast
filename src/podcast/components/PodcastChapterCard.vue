@@ -14,14 +14,18 @@ const chapter = ref(props.chapter)
 
 <template>
   <div class="flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
-    <div class="p-6">
-      <div class="flex justify-between">
-        <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ chapter.title }}</h2>
-        <span class="text-sm text-gray-600"> {{ formatearFecha(chapter.date) }}</span>
+    <div class="px-4 py-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        <h2 class="text-sm sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-0">{{
+          chapter.title
+        }}</h2>
+        <span class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-0">
+          {{ formatearFecha(chapter.date) }}</span
+        >
       </div>
-      <p class="text-gray-700 w-[75ch] text-left">{{ chapter.description }}</p>
+      <p class="text-xs sm:text-sm text-gray-700 text-left">{{ chapter.description }}</p>
     </div>
-    <div class="p-6">
+    <div class="px-4 py-6">
       <audio class="w-full" controls :src="chapter.episode"></audio>
     </div>
   </div>
