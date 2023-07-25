@@ -1,8 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>h-podcast</div>
-  <!-- <RouterView /> -->
+  <RouterView></RouterView>
 </template>
 
 <style scoped></style>
